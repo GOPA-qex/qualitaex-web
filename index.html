@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QualitaEX — Eficiencia Energética Industrial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0A1929;
+    --navy-mid: #0F2338;
+    --steel: #1A3A56;
+    --teal: #1A5FA8;
+    --teal-light: #2878CC;
+    --acid: #7DC242;
+    --acid-dim: #62A030;
+    --white: #F5F8FC;
+    --gray: #8FA8C0;
+    --border: rgba(255,255,255,0.08);
+    --font-display: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 5%;
+    background: rgba(11,28,45,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Myriad Pro', 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+    font-size: 1.9rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    line-height: 1;
+  }
+  .nav-logo .logo-qualita {
+    font-variant: small-caps;
+    font-size: 1.9rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo .logo-ex {
+    font-variant: normal;
+    font-size: 1.9rem;
+    color: var(--acid);
+    letter-spacing: 0.02em;
+    font-weight: 700;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    color: var(--gray); text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--acid); color: #fff;
+    padding: 0.6rem 1.4rem; border-radius: 6px;
+    font-weight: 700; font-size: 0.88rem;
+    text-decoration: none; letter-spacing: 0.2px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #8fd450; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 5% 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(26,95,168,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(125,194,66,0.08) 0%, transparent 50%);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: rgba(125,194,66,0.1);
+    border: 1px solid rgba(125,194,66,0.25);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--acid); letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 1.6rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--acid);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 1.4rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 em { font-style: normal; color: var(--acid); }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--gray);
+    line-height: 1.7; max-width: 500px;
+    margin-bottom: 2.2rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--acid); color: #fff;
+    padding: 0.9rem 2rem; border-radius: 8px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: all 0.2s; border: none; cursor: pointer;
+    font-family: var(--font-body);
+  }
+  .btn-primary:hover { background: #8fd450; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(125,194,66,0.3); }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    padding: 0.9rem 2rem; border-radius: 8px;
+    font-weight: 500; font-size: 0.95rem;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--border); transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2rem; font-weight: 800; color: var(--white);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--acid); }
+  .stat-label { font-size: 0.78rem; color: var(--gray); margin-top: 0.3rem; }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative; z-index: 2;
+    animation: fadeLeft 0.7s 0.2s ease both;
+  }
+  .hero-card {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--acid));
+  }
+  .card-tag {
+    font-size: 0.72rem; font-weight: 600; color: var(--teal-light);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem;
+  }
+  .metric-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-label { font-size: 0.85rem; color: var(--gray); }
+  .metric-val {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1.1rem;
+  }
+  .metric-val.green { color: var(--acid); }
+  .metric-val.teal { color: var(--teal-light); }
+  .progress-bar {
+    height: 4px; background: rgba(255,255,255,0.08);
+    border-radius: 99px; margin-top: 0.4rem; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--teal), var(--acid));
+    animation: growBar 1.5s 0.8s ease both;
+    transform-origin: left;
+  }
+  @keyframes growBar { from { width: 0 !important; } }
+
+  .floating-badge {
+    position: absolute; bottom: -1rem; right: -1rem;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.3rem;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .badge-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem; font-weight: 800; color: var(--acid);
+    line-height: 1;
+  }
+  .badge-text { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── INDUSTRIES TICKER ── */
+  .industries-bar {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    overflow: hidden;
+  }
+  .ticker-track {
+    display: flex; gap: 3rem; align-items: center;
+    animation: ticker 20s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.82rem; font-weight: 500; color: var(--gray);
+    letter-spacing: 0.5px;
+  }
+  .ticker-dot { width: 4px; height: 4px; background: var(--acid); border-radius: 50%; flex-shrink: 0; }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 6rem 5%; }
+  .section-eyebrow {
+    font-size: 0.75rem; font-weight: 600;
+    color: var(--acid); letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800; letter-spacing: -1px;
+    line-height: 1.15; margin-bottom: 1.2rem;
+  }
+  h2 em { font-style: normal; color: var(--acid); }
+  .section-sub { color: var(--gray); font-size: 1rem; line-height: 1.7; max-width: 540px; }
+
+  /* ── PROBLEMS ── */
+  #problemas { background: var(--navy-mid); }
+  .problems-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; margin-top: 3.5rem;
+  }
+  .problem-list { display: flex; flex-direction: column; gap: 1.2rem; }
+  .problem-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .problem-item:hover { border-color: rgba(125,194,66,0.2); background: rgba(125,194,66,0.04); }
+  .problem-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .problem-text strong { display: block; font-weight: 600; margin-bottom: 0.25rem; font-size: 0.95rem; }
+  .problem-text span { font-size: 0.85rem; color: var(--gray); }
+
+  .solution-box {
+    background: linear-gradient(135deg, var(--steel), var(--navy-mid));
+    border: 1px solid rgba(26,95,168,0.3);
+    border-radius: 16px; padding: 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .solution-box::after {
+    content: '';
+    position: absolute; bottom: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(26,95,168,0.2), transparent 70%);
+  }
+  .solution-box h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;
+  }
+  .solution-box p { color: var(--gray); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .solution-points { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .solution-points li {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.9rem;
+  }
+  .solution-points li::before {
+    content: '✓';
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(125,194,66,0.15);
+    color: var(--acid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* ── SERVICES ── */
+  #servicios { background: var(--navy); }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(26,95,168,0.4);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  }
+  .service-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: rgba(26,95,168,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.2rem;
+    border: 1px solid rgba(26,95,168,0.25);
+  }
+  .service-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem; font-weight: 700; margin-bottom: 0.7rem;
+  }
+  .service-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.65; margin-bottom: 1rem; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-size: 0.7rem; font-weight: 600;
+    background: rgba(125,194,66,0.1);
+    border: 1px solid rgba(125,194,66,0.2);
+    color: var(--acid); border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+  }
+
+  /* ── PROCESS ── */
+  #proceso { background: var(--navy-mid); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 0; margin-top: 3.5rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 28px; left: 5%; right: 5%; height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--acid));
+    z-index: 0;
+  }
+  .step {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 0 0.5rem; position: relative; z-index: 1;
+  }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 1rem;
+    color: var(--teal-light);
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+  }
+  .step:hover .step-num {
+    background: var(--teal);
+    color: var(--white);
+    border-color: var(--acid);
+    transform: scale(1.1);
+  }
+  .step-title { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--white); }
+  .step-desc { font-size: 0.72rem; color: var(--gray); line-height: 1.5; }
+
+  /* ── INDUSTRIES ── */
+  #industrias { background: var(--navy); }
+  .industries-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem; margin-top: 3rem;
+  }
+  .industry-card {
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    transition: all 0.2s;
+  }
+  .industry-card:hover {
+    background: rgba(255,255,255,0.03);
+    border-color: rgba(125,194,66,0.25);
+  }
+  .industry-emoji { font-size: 2rem; }
+  .industry-name { font-weight: 600; font-size: 0.95rem; }
+  .industry-sub { font-size: 0.78rem; color: var(--gray); margin-top: 0.2rem; }
+
+  /* ── TESTIMONIALS / CASOS ── */
+  #casos { background: var(--navy-mid); }
+  .casos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .caso-card {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.8rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .caso-card:hover { transform: translateY(-4px); }
+  .caso-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--acid));
+  }
+  .caso-result {
+    font-family: var(--font-display);
+    font-size: 2.2rem; font-weight: 800;
+    color: var(--acid); line-height: 1; margin-bottom: 0.5rem;
+  }
+  .caso-metric { font-size: 0.78rem; color: var(--teal-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
+  .caso-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.65; margin-bottom: 1.2rem; }
+  .caso-industry {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.75rem; color: var(--gray);
+    background: rgba(255,255,255,0.05);
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+  }
+
+  /* ── CTA SECTION ── */
+  #contacto {
+    background: var(--navy);
+    padding: 5rem 5%;
+  }
+  .cta-box {
+    max-width: 900px; margin: 0 auto;
+    background: linear-gradient(135deg, var(--steel) 0%, var(--navy-mid) 100%);
+    border: 1px solid rgba(26,95,168,0.35);
+    border-radius: 24px;
+    padding: 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(26,95,168,0.15), transparent 70%);
+  }
+  .cta-left { position: relative; z-index: 1; }
+  .cta-left h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); margin-bottom: 1rem; }
+  .cta-left p { color: var(--gray); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .cta-perks { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .cta-perks li {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.88rem; color: var(--gray);
+  }
+  .cta-perks li::before {
+    content: '→';
+    color: var(--acid); font-weight: 700; flex-shrink: 0;
+  }
+  .cta-form { position: relative; z-index: 1; }
+  .form-group { margin-bottom: 1.1rem; }
+  .form-group label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--gray); margin-bottom: 0.4rem;
+    letter-spacing: 0.3px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(143,163,176,0.5); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal-light);
+    background: rgba(255,255,255,0.07);
+  }
+  .form-group select option { background: var(--navy); color: var(--white); }
+  .form-group textarea { resize: none; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .btn-submit {
+    width: 100%;
+    background: var(--acid); color: #fff;
+    border: none; border-radius: 8px;
+    padding: 1rem;
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    letter-spacing: -0.3px;
+  }
+  .btn-submit:hover { background: #8fd450; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(125,194,66,0.3); }
+  .form-note { font-size: 0.72rem; color: var(--gray); text-align: center; margin-top: 0.8rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    padding: 3rem 5%;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+  .footer-brand .nav-logo { font-size: 1.6rem; display: block; margin-bottom: 0.8rem; }
+  .footer-brand p { font-size: 0.82rem; color: var(--gray); line-height: 1.7; }
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--white); margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .footer-col ul a { font-size: 0.85rem; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--acid); }
+  .footer-contact p {
+    font-size: 0.85rem; color: var(--gray);
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;
+  }
+  .footer-bottom {
+    padding: 1.5rem 5%;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem; color: var(--gray);
+  }
+
+  /* ── SUCCESS MSG ── */
+  .success-msg {
+    display: none;
+    background: rgba(125,194,66,0.1);
+    border: 1px solid rgba(125,194,66,0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--acid);
+    font-weight: 600;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .process-steps::before { display: none; }
+    .cta-box { grid-template-columns: 1fr; gap: 2.5rem; padding: 2.5rem; }
+    footer { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; padding-top: 6rem; }
+    .hero-visual { display: none; }
+    .problems-grid, .industries-grid, .casos-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+  }
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span class="logo-qualita">Qualita</span><span class="logo-ex">EX</span></a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Metodología</a></li>
+    <li><a href="#industrias">Industrias</a></li>
+    <li><a href="#casos">Resultados</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Agendar Reunión →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Eficiencia Energética Industrial</div>
+    <h1>Tu planta consume más<br>energía de lo que <em>necesita</em></h1>
+    <p class="hero-sub">Auditamos, medimos y optimizamos sistemas de aire comprimido, vapor, transferencia de calor y fluidos — reduciendo tus costos operacionales con +30 años de experiencia técnica.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">Agendar reunión gratuita →</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">30<span>+</span></div>
+        <div class="stat-label">Años de experiencia acumulada</div>
+      </div>
+      <div>
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Mediciones con datos duros</div>
+      </div>
+      <div>
+        <div class="stat-num">6</div>
+        <div class="stat-label">Industrias atendidas</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="card-tag">● Diagnóstico en tiempo real</div>
+      <div class="card-title">Reporte de Eficiencia — Planta Industrial</div>
+      <div class="metric-row">
+        <div>
+          <div class="metric-label">Consumo actual de aire comprimido</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+        </div>
+        <div class="metric-val">78%</div>
+      </div>
+      <div class="metric-row">
+        <div>
+          <div class="metric-label">Fugas detectadas</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:32%"></div></div>
+        </div>
+        <div class="metric-val" style="color:#e87070">32%</div>
+      </div>
+      <div class="metric-row">
+        <div>
+          <div class="metric-label">Potencial de ahorro proyectado</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:23%"></div></div>
+        </div>
+        <div class="metric-val green">23%</div>
+      </div>
+      <div class="metric-row">
+        <div>
+          <div class="metric-label">Punto de Rocío / Calidad</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:91%"></div></div>
+        </div>
+        <div class="metric-val teal">Óptimo</div>
+      </div>
+    </div>
+    <div class="floating-badge">
+      <div class="badge-num">-23%</div>
+      <div class="badge-text">Ahorro energético<br>proyectado</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="industries-bar">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-dot"></span> Minería</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Manufactura</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Alimentos y Bebidas</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Salud y Farmacéutica</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Celulosa y Papel</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Salmoneras</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Forestal</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Aire Comprimido</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Vapor y Condensado</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Gases Técnicos</div>
+    <!-- duplicate for loop -->
+    <div class="ticker-item"><span class="ticker-dot"></span> Minería</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Manufactura</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Alimentos y Bebidas</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Salud y Farmacéutica</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Celulosa y Papel</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Salmoneras</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Forestal</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Aire Comprimido</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Vapor y Condensado</div>
+    <div class="ticker-item"><span class="ticker-dot"></span> Gases Técnicos</div>
+  </div>
+</div>
+
+<!-- PROBLEMAS -->
+<section id="problemas">
+  <div class="problems-grid">
+    <div>
+      <div class="section-eyebrow">El problema</div>
+      <h2>¿Tu planta paga más de lo<br>que <em>debería</em>?</h2>
+      <p class="section-sub">La mayoría de las plantas industriales en Chile operan con ineficiencias energéticas silenciosas que se acumulan en la cuenta de resultados cada mes.</p>
+      <div class="problem-list" style="margin-top:2rem">
+        <div class="problem-item">
+          <div class="problem-icon">💨</div>
+          <div class="problem-text">
+            <strong>Fugas en sistemas de aire comprimido</strong>
+            <span>Hasta el 30% del aire producido se pierde sin ser detectado, elevando directamente el consumo eléctrico.</span>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">📊</div>
+          <div class="problem-text">
+            <strong>Sin datos duros para tomar decisiones</strong>
+            <span>Operar sin mediciones concretas impide justificar inversiones o identificar dónde están las pérdidas reales.</span>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">🏭</div>
+          <div class="problem-text">
+            <strong>Costos operacionales que no bajan</strong>
+            <span>Presión por cumplir KPIs de producción y energía sin una hoja de ruta técnica clara para lograrlo.</span>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">📋</div>
+          <div class="problem-text">
+            <strong>Cumplimiento de normativas energéticas</strong>
+            <span>Exigencias crecientes en gestión y reporte de energía que requieren expertise técnico especializado.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="solution-box">
+      <h3>Nuestra respuesta: <br>Datos primero, propuestas después</h3>
+      <p>No llegamos con soluciones predefinidas. Comenzamos con inspecciones visuales y captura de datos reales para entender cómo funciona tu sistema. Solo entonces presentamos propuestas de mejora con números concretos.</p>
+      <ul class="solution-points">
+        <li>Medición de flujo, presión, temperatura y punto de rocío</li>
+        <li>Detección de fugas con tecnología especializada</li>
+        <li>Análisis de calidad del aire y contaminantes</li>
+        <li>Auditoría integral de sistemas de vapor y condensado</li>
+        <li>Propuestas con retorno de inversión calculado</li>
+        <li>Acompañamiento en la implementación</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="services-header">
+    <div>
+      <div class="section-eyebrow">Lo que hacemos</div>
+      <h2>Servicios de <em>Ingeniería</em><br>y Eficiencia Energética</h2>
+    </div>
+    <a href="#contacto" class="btn-primary">Consultar por mi caso →</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <h3>Auditorías y Diagnóstico Energético</h3>
+      <p>Evaluación integral de tus sistemas con captura de datos duros. Identificamos ineficiencias y cuantificamos el potencial de ahorro.</p>
+      <div class="service-tags"><span class="tag">Aire Comprimido</span><span class="tag">Vapor</span><span class="tag">Gases</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💡</div>
+      <h3>Consultoría Energética Estratégica</h3>
+      <p>Asesoría técnica para definir la hoja de ruta de eficiencia energética de tu empresa, alineada con tus KPIs e IDEs de producción.</p>
+      <div class="service-tags"><span class="tag">Planificación</span><span class="tag">KPIs</span><span class="tag">IDEs</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📐</div>
+      <h3>Diseño y Ejecución de Proyectos EE</h3>
+      <p>Desde la ingeniería conceptual hasta la implementación. Gestionamos proyectos de eficiencia energética de principio a fin.</p>
+      <div class="service-tags"><span class="tag">Proyectos</span><span class="tag">Implementación</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌡️</div>
+      <h3>Medición en Sistemas Termofluidos</h3>
+      <p>Mediciones especializadas en vapor y condensado, agua, transferencia de calor, vacío, y gases técnicos como N₂, CO₂ y O₂.</p>
+      <div class="service-tags"><span class="tag">Vapor</span><span class="tag">Agua</span><span class="tag">N₂ CO₂ O₂</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Gestión y Asesoría Energética</h3>
+      <p>Apoyo en la implementación de sistemas de gestión de energía, verificación de normas y preparación de procesos de licitación.</p>
+      <div class="service-tags"><span class="tag">ISO 50001</span><span class="tag">Normas</span><span class="tag">Licitaciones</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛡️</div>
+      <h3>Detección de Fugas Especializada</h3>
+      <p>Identificación y cuantificación de fugas en sistemas de aire comprimido, vacío y gases técnicos con equipamiento de última generación.</p>
+      <div class="service-tags"><span class="tag">Ultrasonido</span><span class="tag">Aire</span><span class="tag">Vacío</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div style="text-align:center; margin-bottom: 1rem;">
+    <div class="section-eyebrow">Metodología</div>
+    <h2>Cómo <em>trabajamos</em> contigo</h2>
+    <p class="section-sub" style="margin: 0 auto; text-align:center">Un proceso estructurado que garantiza propuestas con datos reales, no estimaciones.</p>
+  </div>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Reunión inicial</div>
+      <div class="step-desc">Entendemos tu requerimiento y lo acotamos</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Evaluación del proceso</div>
+      <div class="step-desc">Estudiamos el sistema en profundidad</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Plan de medición</div>
+      <div class="step-desc">Definimos metodologías y estudios necesarios</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Medición en terreno</div>
+      <div class="step-desc">Capturamos datos duros del sistema real</div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-title">Análisis de resultados</div>
+      <div class="step-desc">Procesamos e interpretamos los datos</div>
+    </div>
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-title">Propuesta de mejoras</div>
+      <div class="step-desc">Con ROI calculado y priorización</div>
+    </div>
+    <div class="step">
+      <div class="step-num">07</div>
+      <div class="step-title">Seguimiento</div>
+      <div class="step-desc">Acompañamos la implementación y medimos resultados</div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIAS -->
+<section id="industrias">
+  <div>
+    <div class="section-eyebrow">Sectores que atendemos</div>
+    <h2>Industrias donde <em>operamos</em></h2>
+    <p class="section-sub">Experiencia comprobada trabajando con las industrias más exigentes de Chile en materia de eficiencia energética y control de procesos.</p>
+  </div>
+  <div class="industries-grid">
+    <div class="industry-card">
+      <div class="industry-emoji">⛏️</div>
+      <div>
+        <div class="industry-name">Minería</div>
+        <div class="industry-sub">Grandes consumidores de aire comprimido y energía</div>
+      </div>
+    </div>
+    <div class="industry-card">
+      <div class="industry-emoji">🏭</div>
+      <div>
+        <div class="industry-name">Manufactura e Industria</div>
+        <div class="industry-sub">Optimización de líneas productivas y utilities</div>
+      </div>
+    </div>
+    <div class="industry-card">
+      <div class="industry-emoji">🍺</div>
+      <div>
+        <div class="industry-name">Alimentos y Bebidas</div>
+        <div class="industry-sub">Calidad del aire, vapor y control de procesos</div>
+      </div>
+    </div>
+    <div class="industry-card">
+      <div class="industry-emoji">💊</div>
+      <div>
+        <div class="industry-name">Salud y Farmacéutica</div>
+        <div class="industry-sub">Gases medicinales, calidad ISO 8573 y normas GMP</div>
+      </div>
+    </div>
+    <div class="industry-card">
+      <div class="industry-emoji">🌲</div>
+      <div>
+        <div class="industry-name">Forestal y Celulosa</div>
+        <div class="industry-sub">Sistemas de vapor, condensado y control de procesos</div>
+      </div>
+    </div>
+    <div class="industry-card">
+      <div class="industry-emoji">🐟</div>
+      <div>
+        <div class="industry-name">Salmoneras y Acuicultura</div>
+        <div class="industry-sub">Sistemas de aireación y gases técnicos especializados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASOS DE ÉXITO -->
+<section id="casos">
+  <div>
+    <div class="section-eyebrow">Resultados reales</div>
+    <h2>Lo que logramos para<br>nuestros <em>clientes</em></h2>
+    <p class="section-sub">Resultados concretos obtenidos en proyectos de eficiencia energética e industrial en Chile.</p>
+  </div>
+  <div class="casos-grid">
+    <div class="caso-card">
+      <div class="caso-result">-28%</div>
+      <div class="caso-metric">Reducción consumo eléctrico</div>
+      <div class="caso-desc">Auditoría de sistema de aire comprimido identificó fugas críticas y sobredimensionamiento de compresor. Plan de mejora implementado en 3 meses.</div>
+      <div class="caso-industry">🏭 Manufactura industrial</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-result">35%</div>
+      <div class="caso-metric">Reducción pérdidas en vapor</div>
+      <div class="caso-desc">Diagnóstico integral de sistema de vapor y condensado. Identificación de purgadores fallidos y pérdidas térmicas no detectadas.</div>
+      <div class="caso-industry">🍺 Planta alimentos</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-result">ISO</div>
+      <div class="caso-metric">Cumplimiento normativa aire</div>
+      <div class="caso-desc">Verificación y certificación de calidad de aire comprimido para proceso farmacéutico según norma ISO 8573 y requisitos GMP.</div>
+      <div class="caso-industry">💊 Industria farmacéutica</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACTO -->
+<section id="contacto">
+  <div class="cta-box">
+    <div class="cta-left">
+      <div class="section-eyebrow">Agenda tu reunión</div>
+      <h2>¿Cuánto estás <em>perdiendo</em> hoy?</h2>
+      <p>Una conversación de 30 minutos puede revelar oportunidades de ahorro que llevan meses o años ocultas en tu planta. Sin costo, sin compromiso.</p>
+      <ul class="cta-perks">
+        <li>Diagnóstico preliminar sin costo</li>
+        <li>Reunión por videollamada o en planta</li>
+        <li>Respuesta en menos de 24 horas hábiles</li>
+        <li>Propuesta personalizada a tu industria</li>
+        <li>Equipo técnico con +30 años de experiencia</li>
+      </ul>
+    </div>
+    <div class="cta-form">
+      <!-- FORMULARIO MAILCHIMP -->
+      <style>
+        #mc_embed_signup { background: transparent !important; font-family: inherit !important; width: 100% !important; }
+        #mc_embed_signup h2 { display: none; }
+        #mc_embed_signup .indicates-required { display: none; }
+        #mc_embed_signup .mc-field-group { margin-bottom: 1rem; }
+        #mc_embed_signup .mc-field-group label {
+          display: block;
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: rgba(143,163,176,0.8);
+          margin-bottom: 0.35rem;
+        }
+        #mc_embed_signup .mc-field-group input[type="email"],
+        #mc_embed_signup .mc-field-group input[type="text"],
+        #mc_embed_signup .mc-field-group select {
+          width: 100%;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 8px;
+          color: #fff;
+          padding: 0.65rem 0.9rem;
+          font-size: 0.9rem;
+          box-sizing: border-box;
+          transition: border-color 0.2s;
+          -webkit-appearance: none;
+        }
+        #mc_embed_signup .mc-field-group input:focus,
+        #mc_embed_signup .mc-field-group select:focus {
+          outline: none;
+          border-color: #7DC242;
+        }
+        #mc_embed_signup .mc-field-group input::placeholder { color: rgba(143,163,176,0.45); }
+        #mc_embed_signup .mc-field-group select option { background: #0A1929; color: #fff; }
+        #mc_embed_signup .phonefield { display: flex; gap: 0.4rem; align-items: center; }
+        #mc_embed_signup .phonefield input {
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 8px;
+          color: #fff;
+          padding: 0.65rem 0.5rem;
+          font-size: 0.9rem;
+          text-align: center;
+        }
+        #mc_embed_signup .phonefield-us .phonearea input { width: 3rem; }
+        #mc_embed_signup .phonefield-us .phonedetail1 input { width: 3rem; }
+        #mc_embed_signup .phonefield-us .phonedetail2 input { width: 4rem; }
+        #mc_embed_signup .small-meta { font-size: 0.7rem; color: rgba(143,163,176,0.5); margin-left: 0.3rem; }
+        #mc_embed_signup .optionalParent { margin-top: 1.2rem; }
+        #mc_embed_signup .clear.foot { display: flex; flex-direction: column; align-items: stretch; gap: 0.8rem; }
+        #mc_embed_signup #mc-embedded-subscribe {
+          width: 100%;
+          background: linear-gradient(135deg, #7DC242, #5fa832);
+          color: #fff;
+          font-weight: 700;
+          font-size: 1rem;
+          letter-spacing: 0.03em;
+          padding: 0.9rem 1.5rem;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: opacity 0.2s, transform 0.1s;
+        }
+        #mc_embed_signup #mc-embedded-subscribe:hover { opacity: 0.9; transform: translateY(-1px); }
+        #mc_embed_signup .refferal_badge { display: none !important; }
+        #mc_embed_signup p { display: none; }
+        #mc_embed_signup p.mc-legal-note { display: block; }
+        #mc_embed_signup #mce-error-response { color: #ff6b6b; font-size: 0.85rem; margin-top: 0.5rem; }
+        #mc_embed_signup #mce-success-response { color: #7DC242; font-size: 0.85rem; margin-top: 0.5rem; }
+        .mc-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        @media (max-width: 600px) { .mc-form-row { grid-template-columns: 1fr; } }
+        .mc-legal-note {
+          font-size: 0.7rem;
+          color: rgba(143,163,176,0.55);
+          text-align: center;
+          margin-top: 0.8rem;
+          line-height: 1.5;
+        }
+      </style>
+
+      <div id="mc_embed_shell">
+        <div id="mc_embed_signup">
+          <form action="https://qualitaex.us22.list-manage.com/subscribe/post?u=795245048fe838ee5102b3523&id=9972a68f60&f_id=004ec2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+            <div id="mc_embed_signup_scroll">
+
+              <div class="mc-form-row">
+                <div class="mc-field-group">
+                  <label for="mce-FNAME">Nombre *</label>
+                  <input type="text" name="FNAME" class="text" id="mce-FNAME" placeholder="Tu nombre" required="">
+                </div>
+                <div class="mc-field-group">
+                  <label for="mce-MMERGE3">Cargo</label>
+                  <input type="text" name="MMERGE3" class="text" id="mce-MMERGE3" placeholder="Gerente de Planta...">
+                </div>
+              </div>
+
+              <div class="mc-field-group">
+                <label for="mce-MMERGE2">Empresa *</label>
+                <input type="text" name="MMERGE2" class="text" id="mce-MMERGE2" placeholder="Nombre de tu empresa" required="">
+              </div>
+
+              <div class="mc-field-group">
+                <label for="mce-EMAIL">Email corporativo *</label>
+                <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="tuemail@empresa.cl" required="">
+              </div>
+
+              <div class="mc-form-row">
+                <div class="mc-field-group">
+                  <label for="mce-MMERGE5">Industria</label>
+                  <select name="MMERGE5" id="mce-MMERGE5">
+                    <option value="">Selecciona...</option>
+                    <option value="Minería">Minería</option>
+                    <option value="Manufactura / Industria">Manufactura / Industria</option>
+                    <option value="Alimentos y Bebidas">Alimentos y Bebidas</option>
+                    <option value="Salud y Farmacéutica">Salud y Farmacéutica</option>
+                    <option value="Forestal / Celulosa">Forestal / Celulosa</option>
+                    <option value="Salmoneras / Acuicultura">Salmoneras / Acuicultura</option>
+                    <option value="Otra">Otra</option>
+                  </select>
+                </div>
+                <div class="mc-field-group">
+                  <label for="mce-MMERGE6">Interés principal</label>
+                  <select name="MMERGE6" id="mce-MMERGE6">
+                    <option value="">Selecciona...</option>
+                    <option value="Aire Comprimido">Aire Comprimido</option>
+                    <option value="Vapor">Vapor</option>
+                    <option value="Ambos">Ambos</option>
+                    <option value="Otro">Otro</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none;"></div>
+                <div class="response" id="mce-success-response" style="display:none;"></div>
+              </div>
+
+              <div aria-hidden="true" style="position:absolute; left:-5000px;">
+                <input type="text" name="b_795245048fe838ee5102b3523_9972a68f60" tabindex="-1" value="">
+              </div>
+
+              <div class="optionalParent">
+                <div class="clear foot">
+                  <input type="submit" name="subscribe" id="mc-embedded-subscribe" value="Quiero agendar mi reunión →">
+                </div>
+              </div>
+
+              <p class="mc-legal-note">🔒 Al enviar este formulario aceptas recibir contenido técnico y comercial de QualitaEX. Puedes cancelar tu suscripción en cualquier momento. Tus datos no serán compartidos con terceros. Cumplimos con la Ley N° 21.719 de Protección de Datos Personales de Chile.</p>
+
+            </div>
+          </form>
+        </div>
+      </div>
+      <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+      <script type="text/javascript">
+        (function($) {
+          window.fnames = new Array(); window.ftypes = new Array();
+          fnames[0]='EMAIL'; ftypes[0]='email';
+          fnames[1]='FNAME'; ftypes[1]='text';
+          fnames[2]='MMERGE2'; ftypes[2]='text';
+          fnames[3]='MMERGE3'; ftypes[3]='text';
+          fnames[4]='MMERGE4'; ftypes[4]='phone';
+          fnames[5]='MMERGE5'; ftypes[5]='dropdown';
+          fnames[6]='MMERGE6'; ftypes[6]='dropdown';
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
+      </script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo"><span class="logo-qualita">Qualita</span><span class="logo-ex">EX</span></a>
+    <p>Empresa especializada en ingeniería de eficiencia energética para la industria nacional. +30 años de experiencia en sistemas termofluidos.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Servicios</h4>
+    <ul>
+      <li><a href="#servicios">Auditorías Energéticas</a></li>
+      <li><a href="#servicios">Consultoría Estratégica</a></li>
+      <li><a href="#servicios">Medición en Terreno</a></li>
+      <li><a href="#servicios">Detección de Fugas</a></li>
+      <li><a href="#servicios">Proyectos EE</a></li>
+    </ul>
+  </div>
+  <div class="footer-col footer-contact">
+    <h4>Contacto</h4>
+    <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9fad6d7cdd8dacdd6f9e8ccd8d5d0cdd8fce197dad5">[email&#160;protected]</a></p>
+    <p>📱 +56 9 5711 0623</p>
+    <p>🌐 <a href="https://www.qualitaex.cl" style="color:var(--gray); text-decoration:none">www.qualitaex.cl</a></p>
+    <div style="margin-top:1rem">
+      <a href="https://www.linkedin.com/company/qualitaex/" target="_blank" style="color:var(--acid); font-size:0.85rem; text-decoration:none; font-weight:600">→ LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 QualitaEX — Todos los derechos reservados.</span>
+  <span>Ingeniería y Eficiencia Energética Industrial · Chile</span>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Smooth reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transfor
