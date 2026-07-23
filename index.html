@@ -1261,4 +1261,22 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.style.opacity = '1';
-      e.target.style.transfor
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+});
+
+// Register successful contact attempts as leads in Google Analytics.
+const leadForm = document.getElementById('mc-embedded-subscribe-form');
+if (leadForm) {
+  leadForm.addEventListener('submit', () => {
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        method: 'mailchimp_contact_form'
+      });
+    }
+  });
+}
+</script>
+</body>
+</html>
