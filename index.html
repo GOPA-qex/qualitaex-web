@@ -1397,14 +1397,31 @@ const observer = new IntersectionObserver((entries) => {
 // Register successful contact attempts as leads in Google Analytics.
 const leadForm = document.getElementById('mc-embedded-subscribe-form');
 if (leadForm) {
-  leadForm.addEventListener('submit', () => {
+  let leadEventSent = false;
+
+  const trackLeadSubmission = () => {
+    if (leadEventSent || !leadForm.checkValidity()) return;
+    leadEventSent = true;
+
     if (typeof gtag === 'function') {
       gtag('event', 'generate_lead', {
         method: 'mailchimp_lead_magnet',
         lead_type: 'guide_subscription',
-        form_id: 'mc-embedded-subscribe-form'
+        form_id: 'mc-embedded-subscribe-form',
+        transport_type: 'beacon'
       });
     }
+  };
+
+  // Mailchimp can handle the button before the native submit event, so both
+  // paths are observed. The guard above prevents duplicate Analytics events.
+  const leadSubmitButton = document.getElementById('mc-embedded-subscribe');
+  if (leadSubmitButton) {
+    leadSubmitButton.addEventListener('click', trackLeadSubmission);
+  }
+
+  leadForm.addEventListener('submit', () => {
+    trackLeadSubmission();
 
     // Mailchimp opens the confirmation step in a new tab. Clear the original
     // form once the browser has had time to submit all entered values.
