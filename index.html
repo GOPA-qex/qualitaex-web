@@ -1400,6 +1400,14 @@ if (leadForm) {
         method: 'mailchimp_lead_magnet'
       });
     }
+
+    // Mailchimp opens the confirmation step in a new tab. Clear the original
+    // form once the browser has had time to submit all entered values.
+    window.setTimeout(() => {
+      leadForm.reset();
+      const submitButton = document.getElementById('mc-embedded-subscribe');
+      if (submitButton) submitButton.blur();
+    }, 500);
   });
 }
 
