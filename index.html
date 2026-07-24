@@ -148,7 +148,6 @@
     transition: background 0.2s, transform 0.15s;
   }
   .nav-cta:hover { background: #8fd450; transform: translateY(-1px); }
-
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
@@ -232,6 +231,17 @@
     border: 1px solid var(--border); transition: all 0.2s;
   }
   .btn-secondary:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); }
+  .btn-guide {
+    color: var(--navy) !important;
+    background: #fff !important;
+    border-color: #fff !important;
+    font-weight: 700;
+  }
+  .btn-guide:hover {
+    color: var(--navy) !important;
+    background: var(--light) !important;
+    border-color: var(--acid) !important;
+  }
 
   .hero-stats {
     display: flex; gap: 2.5rem; margin-top: 3rem;
@@ -565,6 +575,93 @@
   .cta-left { position: relative; z-index: 1; }
   .cta-left h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); margin-bottom: 1rem; }
   .cta-left p { color: var(--gray); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .lead-magnet-card {
+    background: rgba(125,194,66,0.09);
+    border: 1px solid rgba(125,194,66,0.38);
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin-bottom: 1.4rem;
+  }
+  .lead-magnet-label {
+    color: var(--acid);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .lead-magnet-card h3 {
+    font-size: 1.08rem;
+    line-height: 1.35;
+    margin-bottom: 0.55rem;
+  }
+  .lead-magnet-card p { margin-bottom: 0; }
+  .guide-parts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+  .guide-part {
+    background: rgba(255,255,255,0.05);
+    border-radius: 9px;
+    padding: 0.75rem;
+  }
+  .guide-part strong {
+    display: block;
+    color: var(--white);
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+  .guide-part span {
+    color: var(--gray);
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  .meeting-option {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    margin-top: 1.5rem;
+    padding-top: 1.4rem;
+  }
+  .meeting-option h3 { font-size: 1rem; margin-bottom: 0.45rem; }
+  .meeting-option p { margin-bottom: 1rem; }
+  .meeting-option .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--acid);
+    background: rgba(125,194,66,0.1);
+    color: var(--white);
+    font-weight: 700;
+  }
+  .meeting-option .btn-secondary:hover {
+    border-color: #9bdd62;
+    background: rgba(125,194,66,0.2);
+  }
+  .linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #72b7e6;
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .linkedin-link:hover { color: #0a66c2; }
+  .linkedin-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 1.25rem;
+    fill: #0a66c2;
+  }
+  .form-intro { margin-bottom: 1.25rem; }
+  .form-intro h3 { font-size: 1.18rem; margin-bottom: 0.45rem; }
+  .form-intro p {
+    color: var(--gray);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
   .cta-perks { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
   .cta-perks li {
     display: flex; align-items: center; gap: 0.7rem;
@@ -680,6 +777,8 @@
     .process-steps { grid-template-columns: 1fr 1fr; }
     footer { grid-template-columns: 1fr; }
     .nav-links { display: none; }
+    .nav-cta { font-size: 0.72rem; padding: 0.55rem 0.7rem; }
+    .guide-parts { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
     .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
@@ -708,7 +807,7 @@
     <li><a href="#industrias">Industrias</a></li>
     <li><a href="#casos">Resultados</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta">Agendar Reunión →</a>
+  <a href="mailto:contacto@qualitaex.cl?subject=Solicitud%20de%20evaluaci%C3%B3n%20t%C3%A9cnica&body=Hola%20equipo%20QualitaEX%2C%0A%0AMe%20interesa%20coordinar%20una%20evaluaci%C3%B3n%20t%C3%A9cnica.%0A%0AEmpresa%3A%0ASistema%20o%20problema%3A%0ATel%C3%A9fono%3A%0A%0AGracias." class="nav-cta meeting-cta">Solicitar evaluación técnica →</a>
 </nav>
 
 <!-- HERO -->
@@ -720,8 +819,8 @@
     <h1>Tu planta consume más<br>energía de lo que <em>necesita</em></h1>
     <p class="hero-sub">Auditamos, medimos y optimizamos sistemas de aire comprimido, vapor, transferencia de calor y fluidos — reduciendo tus costos operacionales con +30 años de experiencia técnica.</p>
     <div class="hero-actions">
-      <a href="#contacto" class="btn-primary">Agendar reunión gratuita →</a>
-      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+      <a href="mailto:contacto@qualitaex.cl?subject=Solicitud%20de%20evaluaci%C3%B3n%20t%C3%A9cnica&body=Hola%20equipo%20QualitaEX%2C%0A%0AMe%20interesa%20coordinar%20una%20evaluaci%C3%B3n%20t%C3%A9cnica.%0A%0AEmpresa%3A%0ASistema%20o%20problema%3A%0ATel%C3%A9fono%3A%0A%0AGracias." class="btn-primary meeting-cta">Solicitar evaluación técnica →</a>
+      <a href="#contacto" class="btn-secondary btn-guide">Recibir guía técnica gratuita</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -865,7 +964,6 @@
       <div class="section-eyebrow">Lo que hacemos</div>
       <h2>Servicios de <em>Ingeniería</em><br>y Eficiencia Energética</h2>
     </div>
-    <a href="#contacto" class="btn-primary">Consultar por mi caso →</a>
   </div>
   <div class="services-grid">
     <div class="service-card">
@@ -1039,19 +1137,36 @@
 <section id="contacto">
   <div class="cta-box">
     <div class="cta-left">
-      <div class="section-eyebrow">Agenda tu reunión</div>
-      <h2>¿Cuánto estás <em>perdiendo</em> hoy?</h2>
-      <p>Una conversación de 30 minutos puede revelar oportunidades de ahorro que llevan meses o años ocultas en tu planta. Sin costo, sin compromiso.</p>
+      <div class="section-eyebrow">Recurso técnico gratuito</div>
+      <h2>10 Fuentes Ocultas de Pérdidas en <em>Sistemas de Aire Comprimido</em></h2>
+      <div class="lead-magnet-card">
+        <div class="lead-magnet-label">Guía técnica práctica · Dos partes</div>
+        <h3>Identifica pérdidas ocultas y conviértelas en oportunidades de ahorro</h3>
+        <p>Esta guía reúne criterios técnicos, ejemplos económicos y una metodología de diagnóstico desarrollada para sistemas industriales de aire comprimido.</p>
+        <div class="guide-parts">
+          <div class="guide-part">
+            <strong>Parte 1 · El problema</strong>
+            <span>Fugas, caídas de presión, sobrepresión, usos inapropiados y control ineficiente.</span>
+          </div>
+          <div class="guide-part">
+            <strong>Parte 2 · La solución</strong>
+            <span>Fuentes avanzadas, cálculo de ahorro y hoja de ruta para el diagnóstico.</span>
+          </div>
+        </div>
+      </div>
       <ul class="cta-perks">
-        <li>Diagnóstico preliminar sin costo</li>
-        <li>Reunión por videollamada o en planta</li>
-        <li>Respuesta en menos de 24 horas hábiles</li>
-        <li>Propuesta personalizada a tu industria</li>
-        <li>Equipo técnico con +30 años de experiencia</li>
+        <li>19 páginas de contenido técnico entre ambas partes</li>
+        <li>10 fuentes de pérdida explicadas con ejemplos</li>
+        <li>Modelo simplificado para estimar el ahorro potencial</li>
+        <li>Metodología de diagnóstico QualitaEX en cinco fases</li>
       </ul>
     </div>
     <div class="cta-form">
       <!-- FORMULARIO MAILCHIMP -->
+      <div class="form-intro">
+        <h3>Suscríbete y recibe la guía</h3>
+        <p>Completa tus datos. Te enviaremos un correo para confirmar la suscripción y, después, el enlace de descarga.</p>
+      </div>
       <style>
         #mc_embed_signup { background: transparent !important; font-family: inherit !important; width: 100% !important; }
         #mc_embed_signup h2 { display: none; }
@@ -1196,11 +1311,11 @@
 
               <div class="optionalParent">
                 <div class="clear foot">
-                  <input type="submit" name="subscribe" id="mc-embedded-subscribe" value="Quiero agendar mi reunión →">
+                  <input type="submit" name="subscribe" id="mc-embedded-subscribe" value="Quiero suscribirme y recibir la Guía Técnica →">
                 </div>
               </div>
 
-              <p class="mc-legal-note">🔒 Al enviar este formulario aceptas recibir contenido técnico y comercial de QualitaEX. Puedes cancelar tu suscripción en cualquier momento. Tus datos no serán compartidos con terceros. Cumplimos con la Ley N° 21.719 de Protección de Datos Personales de Chile.</p>
+              <p class="mc-legal-note">🔒 Al enviar este formulario solicitas recibir la Guía Técnica y aceptas recibir contenido técnico y comercial de QualitaEX. Deberás confirmar tu correo. Puedes cancelar tu suscripción en cualquier momento. Tus datos no serán compartidos con terceros.</p>
 
             </div>
           </form>
@@ -1220,6 +1335,11 @@
         }(jQuery));
         var $mcj = jQuery.noConflict(true);
       </script>
+      <div class="meeting-option">
+        <h3>¿Necesitas conversar sobre tu planta?</h3>
+        <p>La solicitud de evaluación es independiente de la suscripción a contenidos.</p>
+        <a href="mailto:contacto@qualitaex.cl?subject=Solicitud%20de%20evaluaci%C3%B3n%20t%C3%A9cnica&body=Hola%20equipo%20QualitaEX%2C%0A%0AMe%20interesa%20coordinar%20una%20evaluaci%C3%B3n%20t%C3%A9cnica.%0A%0AEmpresa%3A%0ASistema%20o%20problema%3A%0ATel%C3%A9fono%3A%0A%0AGracias." class="btn-secondary meeting-cta">Escribir a contacto@qualitaex.cl →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1246,7 +1366,12 @@
     <p>📱 +56 9 5711 0623</p>
     <p>🌐 <a href="https://www.qualitaex.cl" style="color:var(--gray); text-decoration:none">www.qualitaex.cl</a></p>
     <div style="margin-top:1rem">
-      <a href="https://www.linkedin.com/company/qualitaex/" target="_blank" style="color:var(--acid); font-size:0.85rem; text-decoration:none; font-weight:600">→ LinkedIn</a>
+      <a href="https://www.linkedin.com/company/qualitaex/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Visitar QualitaEX en LinkedIn">
+        <svg class="linkedin-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"/>
+        </svg>
+        <span>LinkedIn</span>
+      </a>
     </div>
   </div>
 </footer>
@@ -1272,11 +1397,23 @@ if (leadForm) {
   leadForm.addEventListener('submit', () => {
     if (typeof gtag === 'function') {
       gtag('event', 'generate_lead', {
-        method: 'mailchimp_contact_form'
+        method: 'mailchimp_lead_magnet'
       });
     }
   });
 }
+
+// Measure commercial requests separately from lead-magnet subscriptions.
+document.querySelectorAll('.meeting-cta').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (typeof gtag === 'function') {
+      gtag('event', 'contact_request', {
+        method: 'email',
+        link_location: link.closest('nav') ? 'navigation' : (link.closest('#hero') ? 'hero' : 'lead_magnet_section')
+      });
+    }
+  });
+});
 </script>
 </body>
 </html>
