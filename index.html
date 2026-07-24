@@ -1417,7 +1417,7 @@ if (leadForm) {
   // paths are observed. The guard above prevents duplicate Analytics events.
   const leadSubmitButton = document.getElementById('mc-embedded-subscribe');
   if (leadSubmitButton) {
-    leadSubmitButton.addEventListener('click', trackLeadSubmission);
+    leadSubmitButton.addEventListener('click', trackLeadSubmission, true);
   }
 
   leadForm.addEventListener('submit', () => {
