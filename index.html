@@ -1439,7 +1439,8 @@ document.querySelectorAll('.meeting-cta').forEach((link) => {
     if (typeof gtag === 'function') {
       gtag('event', 'contact_request', {
         contact_method: 'email',
-        cta_location: link.dataset.ctaLocation || 'unknown'
+        cta_location: link.dataset.ctaLocation || 'unknown',
+        transport_type: 'beacon'
       });
     }
   });
