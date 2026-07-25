@@ -1435,13 +1435,25 @@ if (leadForm) {
 
 // Measure commercial requests separately from lead-magnet subscriptions.
 document.querySelectorAll('.meeting-cta').forEach((link) => {
-  link.addEventListener('click', () => {
+  link.addEventListener('click', (event) => {
     if (typeof gtag === 'function') {
+      event.preventDefault();
+      let emailOpened = false;
+      const openEmail = () => {
+        if (emailOpened) return;
+        emailOpened = true;
+        window.location.href = link.href;
+      };
+
       gtag('event', 'contact_request', {
         contact_method: 'email',
         cta_location: link.dataset.ctaLocation || 'unknown',
-        transport_type: 'beacon'
+        transport_type: 'beacon',
+        event_callback: openEmail
       });
+
+      // Continue even if Analytics is blocked or its callback is delayed.
+      window.setTimeout(openEmail, 400);
     }
   });
 });
