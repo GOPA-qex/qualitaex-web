@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1D2XY0NZP"></script>
+<!-- GA4 and Microsoft Clarity are loaded only after analytics consent. -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  (function () {
+    const consentKey = 'qex_analytics_consent';
+    let analyticsLoaded = false;
 
-  gtag('config', 'G-Z1D2XY0NZP');
-</script>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
+    window.qexLoadAnalytics = function () {
+      if (analyticsLoaded) return;
+      analyticsLoaded = true;
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-Z1D2XY0NZP', { anonymize_ip: true });
+
+      const gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-Z1D2XY0NZP';
+      document.head.appendChild(gaScript);
+
+      (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xyzt43ic4m");
+      })(window, document, 'clarity', 'script', 'xyzt43ic4m');
+    };
+
+    try {
+      if (window.localStorage.getItem(consentKey) === 'granted') {
+        window.qexLoadAnalytics();
+      }
+    } catch (error) {
+      // If storage is unavailable, analytics remains disabled by default.
+    }
+  })();
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -759,6 +778,37 @@
     display: flex; justify-content: space-between; align-items: center;
     font-size: 0.78rem; color: var(--gray);
   }
+  .footer-legal-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .footer-legal-links a,
+  .footer-legal-links button {
+    color: var(--gray); background: none; border: 0; padding: 0;
+    font: inherit; cursor: pointer; text-decoration: underline;
+    text-underline-offset: 0.2rem;
+  }
+  .footer-legal-links a:hover,
+  .footer-legal-links button:hover { color: var(--white); }
+
+  /* ── PRIVACY CONSENT ── */
+  .consent-banner {
+    position: fixed; z-index: 1000; left: 50%; bottom: 1.25rem;
+    transform: translateX(-50%); width: min(92%, 760px);
+    display: none; gap: 1.25rem; align-items: center;
+    padding: 1.2rem; border: 1px solid rgba(125,194,66,0.35);
+    border-radius: 12px; background: #0f2338;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.38);
+  }
+  .consent-banner.is-visible { display: flex; }
+  .consent-copy { flex: 1; }
+  .consent-copy strong { display: block; margin-bottom: 0.35rem; font-family: var(--font-display); }
+  .consent-copy p { color: var(--gray); font-size: 0.82rem; line-height: 1.5; }
+  .consent-copy a { color: var(--white); text-underline-offset: 0.2rem; }
+  .consent-actions { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+  .consent-actions button {
+    border-radius: 7px; padding: 0.7rem 0.95rem;
+    font-family: var(--font-display); font-weight: 700; cursor: pointer;
+  }
+  .consent-reject { color: #fff; background: var(--acid); border: 1px solid var(--acid); }
+  .consent-accept { color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3); }
 
   /* ── SUCCESS MSG ── */
   .success-msg {
@@ -792,6 +842,8 @@
     .guide-parts { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .consent-banner { align-items: stretch; flex-direction: column; }
+    .consent-actions { display: grid; grid-template-columns: 1fr 1fr; }
     .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
   }
 
@@ -1326,7 +1378,7 @@
                 </div>
               </div>
 
-              <p class="mc-legal-note">🔒 Al enviar este formulario solicitas recibir la Guía Técnica y aceptas recibir contenido técnico y comercial de QualitaEX. Deberás confirmar tu correo. Puedes cancelar tu suscripción en cualquier momento. Tus datos no serán compartidos con terceros.</p>
+              <p class="mc-legal-note">🔒 Al enviar este formulario solicitas recibir la Guía Técnica y aceptas recibir contenido técnico y comercial de QualitaEX. Deberás confirmar tu correo. Puedes cancelar tu suscripción en cualquier momento. Tus datos serán tratados conforme a nuestra <a href="/privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad y Cookies</a>.</p>
 
             </div>
           </form>
@@ -1388,10 +1440,67 @@
 </footer>
 <div class="footer-bottom">
   <span>© 2026 QualitaEX — Todos los derechos reservados.</span>
+  <span class="footer-legal-links">
+    <a href="/privacidad.html">Privacidad y cookies</a>
+    <button type="button" id="manage-consent">Configurar analítica</button>
+  </span>
   <span>Ingeniería y Eficiencia Energética Industrial · Chile</span>
 </div>
 
+<aside class="consent-banner" id="consent-banner" role="dialog" aria-labelledby="consent-title" aria-describedby="consent-description">
+  <div class="consent-copy">
+    <strong id="consent-title">Tu privacidad importa</strong>
+    <p id="consent-description">Usamos analítica opcional de Google Analytics y Microsoft Clarity para comprender y mejorar el sitio. Puedes aceptar o rechazarla sin afectar el funcionamiento de la página. <a href="/privacidad.html">Más información</a>.</p>
+  </div>
+  <div class="consent-actions">
+    <button type="button" class="consent-reject" id="reject-analytics">Rechazar</button>
+    <button type="button" class="consent-accept" id="accept-analytics">Aceptar analítica</button>
+  </div>
+</aside>
+
 <script>
+const qexConsentKey = 'qex_analytics_consent';
+const consentBanner = document.getElementById('consent-banner');
+const acceptAnalytics = document.getElementById('accept-analytics');
+const rejectAnalytics = document.getElementById('reject-analytics');
+const manageConsent = document.getElementById('manage-consent');
+
+function getAnalyticsConsent() {
+  try { return window.localStorage.getItem(qexConsentKey); }
+  catch (error) { return null; }
+}
+
+function saveAnalyticsConsent(value) {
+  try { window.localStorage.setItem(qexConsentKey, value); }
+  catch (error) { /* The choice applies to the current page only. */ }
+}
+
+function showConsentBanner() {
+  consentBanner.classList.add('is-visible');
+  rejectAnalytics.focus();
+}
+
+function hideConsentBanner() {
+  consentBanner.classList.remove('is-visible');
+}
+
+acceptAnalytics.addEventListener('click', () => {
+  saveAnalyticsConsent('granted');
+  window.qexLoadAnalytics();
+  hideConsentBanner();
+});
+
+rejectAnalytics.addEventListener('click', () => {
+  saveAnalyticsConsent('denied');
+  hideConsentBanner();
+});
+
+manageConsent.addEventListener('click', showConsentBanner);
+
+if (!getAnalyticsConsent()) {
+  showConsentBanner();
+}
+
 // Smooth reveal on scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
